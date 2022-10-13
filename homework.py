@@ -1,4 +1,3 @@
-from turtle import distance, speed
 from typing import Type, List
 
 
