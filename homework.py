@@ -1,5 +1,5 @@
-from typing import Type, List
 from dataclasses import dataclass
+from typing import Type, List
 
 
 @dataclass
@@ -26,7 +26,7 @@ class Training:
 
     M_IN_KM: int = 1000
     LEN_STEP: float = 0.65
-    MIN_IN_H: float = 60
+    MIN_IN_H: int = 60
 
     def __init__(self,
                  action: int,
@@ -62,23 +62,23 @@ class Training:
 class Running(Training):
     """Тренировка: бег."""
 
-    MIN_IN_H: float = 60
+    MIN_IN_H: int = 60
     CALORIES_MEAN_SPEED_MULTIPLIER: int = 18
-    CALORIES_MEAN_SPEED_SHIFT: int = 1.79
+    CALORIES_MEAN_SPEED_SHIFT: float = 1.79
     M_IN_KM: int = 1000
 
     def get_spent_calories(self) -> float:
         return ((self.CALORIES_MEAN_SPEED_MULTIPLIER * self.get_mean_speed()
                 + self.CALORIES_MEAN_SPEED_SHIFT)
                 * self.weight / self.M_IN_KM
-                * (self.duration * self.MIN_IN_H)
+                * self.duration * self.MIN_IN_H
                 )
 
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
 
-    MIN_IN_H: float = 60
+    MIN_IN_H: int = 60
     CALORIES_WEIGHT_MULTIPLIER: float = 0.035
     CALORIES_SPEED_HEIGHT_MULTIPLIER: float = 0.029
     KMH_IN_MSEC: float = 0.278
@@ -98,7 +98,7 @@ class SportsWalking(Training):
                 + (((self.get_mean_speed() * self.KMH_IN_MSEC)) ** 2)
                 / (self.height / self.CM_IN_M)
                 * self.CALORIES_SPEED_HEIGHT_MULTIPLIER
-                * self.weight) * (self.duration * self.MIN_IN_H)
+                * self.weight) * self.duration * self.MIN_IN_H
                 )
 
 
@@ -107,9 +107,9 @@ class Swimming(Training):
 
     LEN_STEP: float = 1.38
     M_IN_KM: int = 1000
-    CALORIES_MEAN_SPEED_SHIFT: int = 1.1
+    CALORIES_MEAN_SPEED_SHIFT: float = 1.1
     CALORIES_WEIGHT_MULTIPLIER: int = 2
-    MIN_IN_H: float = 60
+    MIN_IN_H: int = 60
 
     def __init__(self,
                  action: int,
