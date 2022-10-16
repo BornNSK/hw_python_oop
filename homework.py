@@ -142,10 +142,9 @@ def read_package(training_type: str, data: List[int]) -> Training:
                                                 "WLK": SportsWalking,
                                                 "SWM": Swimming,
                                                 }
-    if training_type not in training_deff:
-        raise ValueError('Error: Такой вид спорта не обрабатывается.')
-    else:
+    if training_type in training_deff:
         return training_deff[training_type](*data)
+    raise ValueError('Error: Такой вид спорта не обрабатывается.')
 
 
 def main(training: Training) -> str:
